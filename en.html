@@ -428,7 +428,7 @@
         }
         .hero-wolf-wrapper {
             position: relative;
-            width: clamp(600px, 70vw, 1000px);
+            width: clamp(300px, 38vw, 480px);
             margin: -2rem auto 0;
             opacity: 0;
             transform: scale(0.9);
@@ -438,7 +438,17 @@
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 0 60px rgba(212, 160, 60, 0.5));
+            filter: drop-shadow(0 0 30px rgba(212, 160, 60, 0.4));
+            animation: wolfBreath 4s ease-in-out infinite, wolfFloat 6s ease-in-out infinite;
+        }
+        @keyframes wolfBreath {
+            0%, 100% { filter: drop-shadow(0 0 25px rgba(212, 160, 60, 0.3)) drop-shadow(0 0 60px rgba(212, 160, 60, 0.1)); }
+            50% { filter: drop-shadow(0 0 40px rgba(212, 160, 60, 0.55)) drop-shadow(0 0 80px rgba(212, 160, 60, 0.2)); }
+        }
+        @keyframes wolfFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-6px) rotate(0.3deg); }
+            66% { transform: translateY(3px) rotate(-0.2deg); }
         }
         .hero-divider { display: none; }
 
@@ -1106,7 +1116,60 @@
         }
         .screenshot-item.revealed img { clip-path: inset(0 0 0 0); }
         .screenshot-item:hover img { transform: scale(1.05); }
-        
+        .lightbox-img { cursor: zoom-in; }
+
+        /* Lightbox overlay */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            cursor: zoom-out;
+            padding: 2rem;
+        }
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 1px solid rgba(212, 160, 60, 0.3);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lightbox-overlay.active img {
+            transform: scale(1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: 1px solid rgba(212, 160, 60, 0.4);
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .lightbox-close:hover {
+            border-color: var(--gold);
+            background: rgba(212, 160, 60, 0.1);
+        }
+
         /* Single wide image */
         .screenshot-gallery.single .screenshot-item {
             aspect-ratio: 21/9;
@@ -1394,7 +1457,7 @@
             .hero-title .line2 {
                 white-space: normal;
             }
-            .hero-wolf-wrapper { width: clamp(350px, 85vw, 550px); }
+            .hero-wolf-wrapper { width: clamp(220px, 65vw, 380px); }
             .hero-label { font-size: 0.65rem; letter-spacing: 0.3em; }
             .hero-subtitle { font-size: 0.95rem; }
             .video-grid, .video-grid.cols-2 { grid-template-columns: 1fr; }
@@ -1666,20 +1729,20 @@
             <!-- BEFORE -->
             <h4 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 2rem; margin-bottom: 2rem;">BEFORE</h4>
             <div class="screenshot-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-                <div class="screenshot-item"><img src="assets/images/spanelstina/section-01.png" alt="Original website — Homepage"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/02-lektori.png" alt="Original website — Teachers"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/06-kontakt.png" alt="Original website — Contact"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/section-01.png" alt="Original website — Homepage" class="lightbox-img"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/section-02.png" alt="Original website — Teachers" class="lightbox-img"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/section-03.png" alt="Original website — Contact" class="lightbox-img"></div>
             </div>
 
             <!-- AFTER -->
             <h4 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 3rem; margin-bottom: 2rem;">AFTER</h4>
             <div class="screenshot-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-                <div class="screenshot-item"><img src="assets/images/spanelstina/01-kurzy.png" alt="New website — Courses"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/section-01.png" alt="New website — About us"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/02-lektori.png" alt="New website — Teachers"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/04-urovne.png" alt="New website — Language levels"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/05-reference.png" alt="New website — Testimonials"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/06-kontakt.png" alt="New website — Contact"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/01-kurzy.png" alt="New website — Courses" class="lightbox-img"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/02-lektori.png" alt="New website — Teachers" class="lightbox-img"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/03-lektorky.png" alt="New website — Instructors" class="lightbox-img"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/04-urovne.png" alt="New website — Language levels" class="lightbox-img"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/05-reference.png" alt="New website — Testimonials" class="lightbox-img"></div>
+                <div class="screenshot-item"><img src="assets/images/spanelstina/06-kontakt.png" alt="New website — Contact" class="lightbox-img"></div>
             </div>
         </div>
 
@@ -1997,6 +2060,8 @@
         let bAllColumns = Math.floor(window.innerWidth / bFontSize);
         const bDrops = [];
         const bSpeeds = [];
+        const bTrails = [];
+        const TAIL_LENGTH = 6;
 
         // Words that appear in the rain
         const rainWords = ['WEBLYX', 'JARVIS', 'ZENSEN', 'PREDATOR', 'TONY'];
@@ -2006,6 +2071,7 @@
         for (let i = 0; i < bAllColumns; i++) {
             bDrops[i] = Math.random() * -20;
             bSpeeds[i] = Math.random() * 0.08 + 0.02;
+            bTrails[i] = [];
         }
 
         // Spawn words anywhere on the page
@@ -2064,25 +2130,32 @@
         setTimeout(spawnWGhost, 8000);
 
         function drawBinaryRain() {
-            // Fade trail
-            bCtx.fillStyle = 'rgba(0, 0, 0, 0.12)';
-            bCtx.fillRect(0, 0, binaryCanvas.width, binaryCanvas.height);
-
+            // Clean slate every frame - no ghosting, no trails
+            bCtx.clearRect(0, 0, binaryCanvas.width, binaryCanvas.height);
             bCtx.font = bFontSize + 'px monospace';
 
-            // --- Binary rain - ALL columns, full page ---
+            // --- Binary rain with controlled tails ---
             for (let i = 0; i < bAllColumns; i++) {
-                const char = binaryChars[Math.floor(Math.random() * binaryChars.length)];
                 const y = bDrops[i] * bFontSize;
 
                 if (y > 0) {
-                    const isLetter = (char === 'F' || char === 'J' || char === 'Z');
-                    // Subtle edge fade for aesthetics
+                    const char = binaryChars[Math.floor(Math.random() * binaryChars.length)];
                     const edgePos = i / bAllColumns;
                     const edgeFade = Math.min(edgePos * 5, (1 - edgePos) * 5, 1);
-                    const alpha = isLetter ? 0.4 * edgeFade : 0.18 * edgeFade;
-                    bCtx.fillStyle = `rgba(212, 160, 60, ${alpha})`;
-                    bCtx.fillText(char, i * bFontSize, y);
+
+                    // Store current position in trail
+                    bTrails[i].push({ y: y, char: char });
+                    if (bTrails[i].length > TAIL_LENGTH) bTrails[i].shift();
+
+                    // Draw tail: oldest = faintest, newest = brightest
+                    for (let t = 0; t < bTrails[i].length; t++) {
+                        const trail = bTrails[i][t];
+                        const progress = t / bTrails[i].length;
+                        const isHead = (t === bTrails[i].length - 1);
+                        const alpha = isHead ? 0.14 * edgeFade : (0.03 + progress * 0.06) * edgeFade;
+                        bCtx.fillStyle = `rgba(140, 115, 45, ${alpha})`;
+                        bCtx.fillText(trail.char, i * bFontSize, trail.y);
+                    }
                 }
 
                 bDrops[i] += bSpeeds[i];
@@ -2090,6 +2163,7 @@
                 if (bDrops[i] * bFontSize > binaryCanvas.height && Math.random() > 0.975) {
                     bDrops[i] = Math.random() * -10;
                     bSpeeds[i] = Math.random() * 0.08 + 0.02;
+                    bTrails[i] = [];
                 }
             }
 
@@ -2099,17 +2173,19 @@
                 aw.timer += aw.speed;
 
                 if (aw.timer >= 1 && aw.charIndex < aw.word.length) {
-                    const cx = aw.col * bFontSize;
-                    const cy = aw.y + aw.charIndex * bFontSize * 1.2;
-
-                    bCtx.fillStyle = 'rgba(244, 197, 86, 0.85)';
-                    bCtx.font = (bFontSize + 1) + 'px monospace';
-                    bCtx.fillText(aw.word[aw.charIndex], cx, cy);
-                    bCtx.font = bFontSize + 'px monospace';
-
                     aw.charIndex++;
                     aw.timer = 0;
                 }
+
+                const cx = aw.col * bFontSize;
+                for (let c = 0; c < aw.charIndex; c++) {
+                    const cy = aw.y + c * bFontSize * 1.2;
+                    const isNewest = (c === aw.charIndex - 1);
+                    bCtx.fillStyle = isNewest ? 'rgba(170, 140, 50, 0.4)' : 'rgba(150, 125, 45, 0.2)';
+                    bCtx.font = (bFontSize + 1) + 'px monospace';
+                    bCtx.fillText(aw.word[c], cx, cy);
+                }
+                bCtx.font = bFontSize + 'px monospace';
 
                 if (aw.charIndex >= aw.word.length) {
                     aw.timer += 0.01;
@@ -2123,10 +2199,10 @@
                 const age = Date.now() - g.born;
 
                 if (g.phase === 'in') {
-                    g.alpha = Math.min(g.alpha + 0.008, 0.7);
-                    if (g.alpha >= 0.7) g.phase = 'hold';
+                    g.alpha = Math.min(g.alpha + 0.008, 0.5);
+                    if (g.alpha >= 0.5) g.phase = 'hold';
                 } else if (g.phase === 'hold') {
-                    g.alpha = 0.6 + Math.sin(Date.now() * 0.004) * 0.1;
+                    g.alpha = 0.4 + Math.sin(Date.now() * 0.004) * 0.1;
                     if (age > 4000) g.phase = 'out';
                 } else {
                     g.alpha -= 0.006;
@@ -2144,8 +2220,7 @@
                             const cx = (g.col + col * g.scale) * bFontSize;
                             const cy = g.y + row * cellSize;
                             const bchar = binaryChars[Math.floor(Math.random() * binaryChars.length)];
-                            // Brighter teal-gold for the W
-                            bCtx.fillStyle = `rgba(0, 210, 190, ${g.alpha})`;
+                            bCtx.fillStyle = `rgba(0, 180, 160, ${g.alpha * 0.6})`;
                             bCtx.font = (bFontSize * g.scale) + 'px monospace';
                             bCtx.fillText(bchar, cx, cy);
                         }
@@ -2389,6 +2464,44 @@
                 el.addEventListener('mouseleave', () => cursorFollower.classList.remove('hovering'));
             });
         }
+
+        // ============================================
+        // LIGHTBOX
+        // ============================================
+        (function() {
+            const overlay = document.createElement('div');
+            overlay.className = 'lightbox-overlay';
+            overlay.innerHTML = '<button class="lightbox-close">&times;</button><img src="" alt="">';
+            document.body.appendChild(overlay);
+
+            const lbImg = overlay.querySelector('img');
+            const lbClose = overlay.querySelector('.lightbox-close');
+
+            function openLightbox(src, alt) {
+                lbImg.src = src;
+                lbImg.alt = alt;
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            document.querySelectorAll('.lightbox-img').forEach(img => {
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openLightbox(img.src, img.alt);
+                });
+            });
+
+            overlay.addEventListener('click', closeLightbox);
+            lbClose.addEventListener('click', closeLightbox);
+            lbImg.addEventListener('click', (e) => e.stopPropagation());
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        })();
     </script>
 </body>
 </html>
