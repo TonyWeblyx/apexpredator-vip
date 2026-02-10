@@ -203,11 +203,12 @@
         
         /* FIXED LOGO IMPLEMENTATION */
         .nav-logo {
-            height: 50px;
-            width: 200px;
+            height: 60px;
+            width: 220px;
             position: relative;
             display: flex;
             align-items: center;
+            margin-left: 44px;
         }
         .nav-logo-full,
         .nav-logo-mini {
@@ -225,7 +226,7 @@
         }
         .nav-logo-mini {
             opacity: 0;
-            transform: scale(0.6) translateX(-20px);
+            transform: scale(0.8) translateX(-20px);
         }
         .nav.scrolled .nav-logo-full {
             opacity: 0;
@@ -233,14 +234,56 @@
         }
         .nav.scrolled .nav-logo-mini {
             opacity: 1;
-            transform: scale(1) translateX(0);
+            transform: scale(1.3) translateX(0);
             filter: drop-shadow(0 0 15px rgba(212, 160, 60, 0.5));
         }
         .nav-logo:hover .nav-logo-full,
         .nav-logo:hover .nav-logo-mini {
             filter: drop-shadow(0 0 20px rgba(212, 160, 60, 0.8));
         }
-        
+
+        /* WebLyx Partner Mini Logo */
+        .weblyx-partner {
+            position: absolute;
+            left: 4rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            z-index: 1001;
+        }
+        .weblyx-partner img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            opacity: 0.5;
+            transition: all 0.4s ease;
+            filter: grayscale(0.3);
+        }
+        .weblyx-partner:hover img {
+            opacity: 1;
+            filter: grayscale(0) drop-shadow(0 0 8px rgba(0, 188, 180, 0.6));
+            transform: scale(1.1);
+        }
+        .weblyx-partner span {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            transition: color 0.3s;
+        }
+        .weblyx-partner:hover span {
+            color: rgba(0, 188, 180, 0.8);
+        }
+        .nav.scrolled .weblyx-partner { left: 4rem; }
+        @media (max-width: 768px) {
+            .weblyx-partner { left: 1rem; top: auto; bottom: 1rem; position: fixed; transform: none; z-index: 1002; }
+            .weblyx-partner span { display: none; }
+        }
+
         .nav-links {
             display: flex;
             gap: 3rem;
@@ -1391,6 +1434,10 @@
 
     <!-- NAVIGATION -->
     <nav class="nav" id="nav">
+        <a href="https://weblyx.cz" class="weblyx-partner" target="_blank" rel="noopener" title="WebLyx - Digital Excellence">
+            <img src="assets/logos/weblyx-mini.png" alt="WebLyx">
+            <span>Partner</span>
+        </a>
         <a href="#" class="nav-logo">
             <img src="assets/logos/apd-logo.png" alt="ApexPredator" class="nav-logo-full">
             <img src="assets/logos/apd-monogram-transparent.png" alt="APD" class="nav-logo-mini">
@@ -1932,9 +1979,10 @@
         }, 400);
 
         // ============================================
-        // BINARY RAIN - Slow motion code falling down
+        // BINARY RAIN - Full page, own mechanics
         // Founders Easter Egg: F, J, Z hidden in the code
-        // Words appear: WEBLYX, JARVIS, ZENSEN, PREDATOR, TONY
+        // Words: WEBLYX, JARVIS, ZENSEN, PREDATOR, TONY
+        // WebLyx W ghost materializes as binary characters
         // ============================================
         const binaryCanvas = document.getElementById('binaryRain');
         const bCtx = binaryCanvas.getContext('2d');
@@ -1946,85 +1994,104 @@
         resizeBinaryCanvas();
         window.addEventListener('resize', resizeBinaryCanvas);
 
-        // Founders' initials hidden among binary
         const binaryChars = '01FJZ0101001011010FJZ';
         const bFontSize = 22;
-        const bAllColumns = Math.floor(window.innerWidth / bFontSize);
-
-        // Only center 40% of columns are active (code drips from under the wolf)
-        const centerStart = Math.floor(bAllColumns * 0.30);
-        const centerEnd = Math.floor(bAllColumns * 0.70);
+        let bAllColumns = Math.floor(window.innerWidth / bFontSize);
         const bDrops = [];
         const bSpeeds = [];
-        const bActive = [];
 
         // Words that appear in the rain
         const rainWords = ['WEBLYX', 'JARVIS', 'ZENSEN', 'PREDATOR', 'TONY'];
         const activeWords = [];
 
-        // Binary starts from ~68% of viewport (bottom of the wolf)
-        const dividerRatio = 0.68;
+        // All columns active, drops start from random positions above viewport
         for (let i = 0; i < bAllColumns; i++) {
-            bDrops[i] = dividerRatio * window.innerHeight / bFontSize + Math.random() * 5;
-            bSpeeds[i] = Math.random() * 0.12 + 0.03;
-            // Only activate center columns, with some randomness at edges
-            if (i >= centerStart && i <= centerEnd) {
-                const distFromCenter = Math.abs(i - (centerStart + centerEnd) / 2) / ((centerEnd - centerStart) / 2);
-                bActive[i] = Math.random() > distFromCenter * 0.6;
-            } else {
-                bActive[i] = false;
-            }
+            bDrops[i] = Math.random() * -20;
+            bSpeeds[i] = Math.random() * 0.08 + 0.02;
         }
 
-        // Spawn a word in center columns only
+        // Spawn words anywhere on the page
         function spawnWord() {
             const word = rainWords[Math.floor(Math.random() * rainWords.length)];
-            const col = Math.floor(Math.random() * (centerEnd - centerStart)) + centerStart;
+            const col = Math.floor(Math.random() * bAllColumns);
             activeWords.push({
                 col: col,
                 word: word,
                 charIndex: 0,
-                y: dividerRatio * window.innerHeight,
+                y: Math.random() * window.innerHeight * 0.3,
                 speed: Math.random() * 0.15 + 0.06,
                 timer: 0
             });
         }
 
         setInterval(() => {
-            if (activeWords.length < 4) spawnWord();
-        }, Math.random() * 3000 + 3000);
+            if (activeWords.length < 5) spawnWord();
+        }, 3000 + Math.random() * 3000);
         setTimeout(spawnWord, 1000);
         setTimeout(spawnWord, 2500);
 
+        // --- WebLyx W ghost as binary characters ---
+        const wShape = [
+            [1,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,1],
+            [0,1,0,0,0,0,0,1,0],
+            [0,1,0,0,1,0,0,1,0],
+            [0,0,1,0,1,0,1,0,0],
+            [0,0,1,1,0,1,1,0,0],
+            [0,0,0,1,0,1,0,0,0]
+        ];
+        let ghostActive = false;
+        let ghostData = null;
+
+        function spawnWGhost() {
+            if (ghostActive) return;
+            ghostActive = true;
+            const scale = 2;
+            const startCol = Math.floor(Math.random() * (bAllColumns - wShape[0].length * scale));
+            const startY = window.innerHeight * (0.2 + Math.random() * 0.5);
+            ghostData = {
+                col: startCol,
+                y: startY,
+                scale: scale,
+                alpha: 0,
+                phase: 'in',
+                born: Date.now()
+            };
+        }
+
+        setInterval(() => {
+            if (!ghostActive && Math.random() > 0.3) spawnWGhost();
+        }, 15000 + Math.random() * 10000);
+        setTimeout(spawnWGhost, 8000);
+
         function drawBinaryRain() {
             // Fade trail
-            bCtx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+            bCtx.fillStyle = 'rgba(0, 0, 0, 0.12)';
             bCtx.fillRect(0, 0, binaryCanvas.width, binaryCanvas.height);
 
             bCtx.font = bFontSize + 'px monospace';
 
-            // --- Binary rain - only active center columns ---
+            // --- Binary rain - ALL columns, full page ---
             for (let i = 0; i < bAllColumns; i++) {
-                if (!bActive[i]) continue;
-
                 const char = binaryChars[Math.floor(Math.random() * binaryChars.length)];
                 const y = bDrops[i] * bFontSize;
 
-                if (y > dividerRatio * window.innerHeight) {
+                if (y > 0) {
                     const isLetter = (char === 'F' || char === 'J' || char === 'Z');
-                    // Fade opacity towards edges
-                    const distFromCenter = Math.abs(i - (centerStart + centerEnd) / 2) / ((centerEnd - centerStart) / 2);
-                    const edgeFade = 1 - distFromCenter * 0.7;
-                    const alpha = isLetter ? 0.5 * edgeFade : 0.25 * edgeFade;
+                    // Subtle edge fade for aesthetics
+                    const edgePos = i / bAllColumns;
+                    const edgeFade = Math.min(edgePos * 5, (1 - edgePos) * 5, 1);
+                    const alpha = isLetter ? 0.4 * edgeFade : 0.18 * edgeFade;
                     bCtx.fillStyle = `rgba(212, 160, 60, ${alpha})`;
                     bCtx.fillText(char, i * bFontSize, y);
                 }
 
                 bDrops[i] += bSpeeds[i];
 
-                if (bDrops[i] * bFontSize > binaryCanvas.height && Math.random() > 0.98) {
-                    bDrops[i] = dividerRatio * window.innerHeight / bFontSize;
-                    bSpeeds[i] = Math.random() * 0.12 + 0.03;
+                if (bDrops[i] * bFontSize > binaryCanvas.height && Math.random() > 0.975) {
+                    bDrops[i] = Math.random() * -10;
+                    bSpeeds[i] = Math.random() * 0.08 + 0.02;
                 }
             }
 
@@ -2037,12 +2104,10 @@
                     const cx = aw.col * bFontSize;
                     const cy = aw.y + aw.charIndex * bFontSize * 1.2;
 
-                    if (cy > dividerRatio * window.innerHeight) {
-                        bCtx.fillStyle = 'rgba(244, 197, 86, 0.85)';
-                        bCtx.font = (bFontSize + 1) + 'px monospace';
-                        bCtx.fillText(aw.word[aw.charIndex], cx, cy);
-                        bCtx.font = bFontSize + 'px monospace';
-                    }
+                    bCtx.fillStyle = 'rgba(244, 197, 86, 0.85)';
+                    bCtx.font = (bFontSize + 1) + 'px monospace';
+                    bCtx.fillText(aw.word[aw.charIndex], cx, cy);
+                    bCtx.font = bFontSize + 'px monospace';
 
                     aw.charIndex++;
                     aw.timer = 0;
@@ -2050,9 +2115,44 @@
 
                 if (aw.charIndex >= aw.word.length) {
                     aw.timer += 0.01;
-                    if (aw.timer > 3) {
-                        activeWords.splice(w, 1);
+                    if (aw.timer > 3) activeWords.splice(w, 1);
+                }
+            }
+
+            // --- WebLyx W ghost made of binary chars ---
+            if (ghostActive && ghostData) {
+                const g = ghostData;
+                const age = Date.now() - g.born;
+
+                if (g.phase === 'in') {
+                    g.alpha = Math.min(g.alpha + 0.008, 0.7);
+                    if (g.alpha >= 0.7) g.phase = 'hold';
+                } else if (g.phase === 'hold') {
+                    g.alpha = 0.6 + Math.sin(Date.now() * 0.004) * 0.1;
+                    if (age > 4000) g.phase = 'out';
+                } else {
+                    g.alpha -= 0.006;
+                    if (g.alpha <= 0) {
+                        ghostActive = false;
+                        ghostData = null;
                     }
+                }
+
+                if (ghostData) {
+                    const cellSize = bFontSize * g.scale;
+                    for (let row = 0; row < wShape.length; row++) {
+                        for (let col = 0; col < wShape[row].length; col++) {
+                            if (!wShape[row][col]) continue;
+                            const cx = (g.col + col * g.scale) * bFontSize;
+                            const cy = g.y + row * cellSize;
+                            const bchar = binaryChars[Math.floor(Math.random() * binaryChars.length)];
+                            // Brighter teal-gold for the W
+                            bCtx.fillStyle = `rgba(0, 210, 190, ${g.alpha})`;
+                            bCtx.font = (bFontSize * g.scale) + 'px monospace';
+                            bCtx.fillText(bchar, cx, cy);
+                        }
+                    }
+                    bCtx.font = bFontSize + 'px monospace';
                 }
             }
 
