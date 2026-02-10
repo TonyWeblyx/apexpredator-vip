@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexPredator Design | We Hunt Perfection</title>
+    <meta name="description" content="Prémiové designové studio. Brand identity, 3D animace, AI řešení, webový design. Praha.">
+    <link rel="icon" href="assets/apd-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #D4A03C;
+            --gold-light: #F4C556;
+            --orange: #FF6B00;
+            --black: #0a0a0a;
+            --dark: #111111;
+            --gray: #888888;
+            --white: #ffffff;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Noise overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, transparent 100%);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* SVG monogram - perfectly matched to gold palette */
+        .nav-monogram {
+            width: 36px;
+            height: 36px;
+        }
+
+        .nav-contact a {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            border: 1px solid var(--gold);
+            padding: 10px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-contact a:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+        }
+
+        /* Glow behind wolf */
+        .wolf-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .wolf-container::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(212,160,60,0.12) 0%, rgba(255,107,0,0.04) 40%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .wolf-img {
+            width: 700px;
+            max-width: 90vw;
+            height: auto;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 60px rgba(212,160,60,0.15));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(48px, 10vw, 96px);
+            letter-spacing: 8px;
+            line-height: 1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .tagline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(18px, 3vw, 28px);
+            letter-spacing: 12px;
+            color: var(--gray);
+            margin-bottom: 48px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 48px;
+            opacity: 0.6;
+        }
+
+        /* Services grid */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            width: 100%;
+            margin-bottom: 64px;
+        }
+
+        .service-item {
+            padding: 32px 20px;
+            border: 1px solid rgba(212,160,60,0.15);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(212,160,60,0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-item:hover::before { opacity: 1; }
+        .service-item:hover { border-color: rgba(212,160,60,0.4); transform: translateY(-4px); }
+
+        .service-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .service-item p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Contact section */
+        .contact {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .contact-line {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .contact-line a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-line a:hover {
+            color: var(--gold-light);
+        }
+
+        .contact-line.primary a {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            margin-top: 32px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--orange) 100%);
+            color: var(--black);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212,160,60,0.3);
+        }
+
+        /* Partner section */
+        .partner {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid rgba(212,160,60,0.08);
+        }
+
+        .partner-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .partner-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .partner-link:hover {
+            opacity: 1;
+        }
+
+        .partner-link img {
+            height: 36px;
+            border-radius: 50%;
+        }
+
+        .partner-link span {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .partner-desc {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid rgba(212,160,60,0.08);
+        }
+
+        footer p {
+            font-size: 11px;
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
+
+        footer .location {
+            color: var(--gold);
+            font-size: 12px;
+            margin-bottom: 6px;
+            letter-spacing: 3px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.2s; }
+        .fade-in:nth-child(4) { animation-delay: 0.3s; }
+        .fade-in:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .nav-monogram { width: 28px; height: 28px; }
+            .wolf-img { width: 500px; }
+            .services { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .service-item { padding: 24px 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .wolf-img { width: 90vw; }
+            .services { grid-template-columns: 1fr; }
+            .nav-contact a { padding: 8px 16px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">
+            <!-- Inline SVG monogram - exact gold palette match -->
+            <svg class="nav-monogram" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#F4C556"/>
+                        <stop offset="50%" style="stop-color:#D4A03C"/>
+                        <stop offset="100%" style="stop-color:#FF6B00"/>
+                    </linearGradient>
+                </defs>
+                <!-- A -->
+                <path d="M10 85 L32 15 L54 85 L46 85 L40 65 L24 65 L18 85 Z M27 55 L37 55 L32 30 Z" fill="url(#goldGrad)"/>
+                <!-- P -->
+                <path d="M52 15 L80 15 Q95 15 95 35 Q95 55 80 55 L62 55 L62 85 L52 85 Z M62 25 L62 45 L78 45 Q85 45 85 35 Q85 25 78 25 Z" fill="url(#goldGrad)"/>
+            </svg>
+        </div>
+        <div class="nav-contact">
+            <a href="mailto:info@apexpredator.vip">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+
+        <div class="wolf-container fade-in">
+            <img src="assets/wolf.png" alt="ApexPredator" class="wolf-img">
+        </div>
+
+        <h1 class="fade-in">APEXPREDATOR</h1>
+        <div class="tagline fade-in">WE HUNT PERFECTION</div>
+
+        <div class="divider fade-in"></div>
+
+        <div class="services">
+            <div class="service-item fade-in">
+                <h3>Brand Identity</h3>
+                <p>Logo, vizuální systémy, kompletní branding</p>
+            </div>
+            <div class="service-item fade-in">
+                <h3>Motion & 3D</h3>
+                <p>Animace, 3D vizualizace, reklamní spoty</p>
+            </div>
+            <div class="service-item fade-in">
+                <h3>Web Design</h3>
+                <p>Moderní weby, landing pages, e-commerce</p>
+            </div>
+            <div class="service-item fade-in">
+                <h3>AI Solutions</h3>
+                <p>Chatboti, automatizace, AI integrace</p>
+            </div>
+        </div>
+
+        <div class="contact fade-in">
+            <div class="contact-line primary">
+                <a href="tel:+420607123671">+420 607 123 671</a>
+            </div>
+            <div class="contact-line">
+                <a href="mailto:info@apexpredator.vip">info@apexpredator.vip</a>
+            </div>
+            <a href="mailto:info@apexpredator.vip" class="btn-cta">Zahájit spolupráci</a>
+        </div>
+
+    </section>
+
+    <div class="partner fade-in">
+        <p class="partner-label">Web Development Partner</p>
+        <a href="https://weblyx.cz" target="_blank" class="partner-link">
+            <img src="assets/weblyx.png" alt="Weblyx">
+            <span>Weblyx.cz</span>
+        </a>
+        <p class="partner-desc">Specialista na webový vývoj a digitální řešení</p>
+    </div>
+
+    <footer>
+        <p class="location">PRAHA, CZ</p>
+        <p>&copy; 2026 APEXPREDATOR DESIGN</p>
+    </footer>
+
+</body>
+</html>
