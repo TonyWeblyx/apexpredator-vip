@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URGENT SYSTEM ALERT</title>
+    <title>⚠️ CYBER SENTINEL SECURITY ALERT ⚠️</title>
     <style>
         * {
             margin: 0;
@@ -182,27 +182,117 @@
             </div>
         </div>
 
+        <div class="watermark">
+            BY TONYPREDATOR
+        </div>
+
         <div class="footer">
-            This is an automated productivity alert • Powered by OCCTO S.Q.U.I.D. • Your Big Brother is Watching 🐙
+            CYBER SENTINEL SECURITY PROTOCOLS • This is an automated productivity alert • Your Big Brother is Watching 🐙
         </div>
     </div>
 
+    <style>
+        .countdown {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 72px;
+            color: #ff0000;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ff0000;
+            z-index: 10000;
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            color: #ff6666;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff0000;
+            letter-spacing: 4px;
+        }
+    </style>
+
     <script>
-        // Play dramatic sound if available
+        let canClose = false;
+        let countdown = 5;
+
+        // FORCE FULLSCREEN
         window.addEventListener('load', () => {
+            // Try to go fullscreen
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(() => {});
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen().catch(() => {});
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen().catch(() => {});
+            }
+
             document.body.style.cursor = 'none';
 
             // Shake the screen
             setInterval(() => {
-                document.body.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                if (!canClose) {
+                    document.body.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                }
             }, 100);
+
+            // Countdown timer
+            const countdownEl = document.createElement('div');
+            countdownEl.className = 'countdown';
+            countdownEl.textContent = countdown;
+            document.body.appendChild(countdownEl);
+
+            const timer = setInterval(() => {
+                countdown--;
+                countdownEl.textContent = countdown;
+
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    canClose = true;
+                    countdownEl.textContent = '✓';
+                    countdownEl.style.color = '#00ff00';
+                    document.body.style.cursor = 'default';
+
+                    // Show "You may now close" message
+                    const closeMsg = document.createElement('div');
+                    closeMsg.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,255,0,0.2); padding: 20px; border: 2px solid #00ff00; border-radius: 10px; font-size: 24px; color: #00ff00; z-index: 10001;';
+                    closeMsg.textContent = 'Now GET BACK TO WORK! (You may close this)';
+                    document.body.appendChild(closeMsg);
+                }
+            }, 1000);
         });
 
-        // Make it harder to close
+        // BLOCK ALL CLOSE ATTEMPTS FOR 5 SECONDS
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' || e.key === 'F5') {
-                alert('Nice try, Masiko. GET TO WORK FIRST! 🐙');
+            if (!canClose) {
+                if (e.key === 'Escape' || e.key === 'F5' || e.key === 'F4' && e.altKey) {
+                    alert('⚠️ CYBER SENTINEL: Closing blocked. Wait for countdown! ⚠️');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            }
+        });
+
+        // Block right-click
+        document.addEventListener('contextmenu', (e) => {
+            if (!canClose) {
                 e.preventDefault();
+                return false;
+            }
+        });
+
+        // Block window close
+        window.addEventListener('beforeunload', (e) => {
+            if (!canClose) {
+                e.preventDefault();
+                e.returnValue = 'CYBER SENTINEL: Wait for countdown!';
+                return 'CYBER SENTINEL: Wait for countdown!';
             }
         });
     </script>
