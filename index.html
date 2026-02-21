@@ -223,6 +223,7 @@
             opacity: 1;
             transform: scale(1) translateX(0);
             filter: drop-shadow(0 0 10px rgba(212, 160, 60, 0.3));
+            mix-blend-mode: screen;
         }
         .nav-logo-mini {
             opacity: 0;
@@ -1106,7 +1107,7 @@
             border: 1px solid rgba(212, 160, 60, 0.3);
             box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
             transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s;
         }
         .lightbox-overlay.active img {
             transform: scale(1);
@@ -1130,6 +1131,37 @@
         .lightbox-close:hover {
             border-color: var(--gold);
             background: rgba(212, 160, 60, 0.1);
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background: none;
+            border: 1px solid rgba(212, 160, 60, 0.4);
+            color: var(--gold);
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .lightbox-nav:hover { border-color: var(--gold); background: rgba(212, 160, 60, 0.1); }
+        .lb-prev { left: 1.5rem; }
+        .lb-next { right: 1.5rem; }
+        .lightbox-nav.hidden { display: none; }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            color: rgba(212, 160, 60, 0.5);
+            pointer-events: none;
         }
 
         /* Single wide image */
@@ -1459,7 +1491,7 @@
     <!-- NAVIGATION -->
     <nav class="nav" id="nav">
         <a href="#" class="nav-logo">
-            <video autoplay muted loop playsinline class="nav-logo-full" style="height:60px;width:auto;object-fit:contain;">
+            <video autoplay muted loop playsinline class="nav-logo-full" id="navLogoVideo" style="height:60px;width:auto;object-fit:contain;mix-blend-mode:screen;">
                 <source src="assets/logos/apex-logo-anim.mp4" type="video/mp4">
             </video>
         </a>
@@ -1570,23 +1602,26 @@
     <section class="section services" id="services">
         <p class="section-label">What We Do</p>
         <h2 class="section-title">OUR SERVICES</h2>
-        <p class="section-subtitle">Transformujeme značky a vytváříme vizuální obsah, který dominuje.</p>
-        
-        <div class="services-grid">
+        <p class="section-subtitle">Tři pilíře. Nekonečné možnosti. Jeden tým.</p>
+
+        <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
             <div class="service-card">
                 <span class="corner corner-tl"></span>
                 <span class="corner corner-tr"></span>
                 <span class="corner corner-bl"></span>
                 <span class="corner corner-br"></span>
                 <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                 </div>
-                <h3>BRAND IDENTITY</h3>
-                <p>Značky, které dominují.</p>
+                <h3>ARTIFICIAL INTELLIGENCE</h3>
+                <p>Mozky, které pracují i když spíš.</p>
                 <ul class="service-list">
-                    <li>Logo design & animace</li>
-                    <li>Brand identity systém</li>
-                    <li>Modernizace brandů</li>
+                    <li data-anim="telegram">Systémy, které myslí napřed</li>
+                    <li data-anim="workflow">Automatizace bez limitů, 24/7</li>
+                    <li data-anim="code">Řešení na míru — od nápadu k nasazení</li>
+                    <li data-anim="connect">Integrace kamkoli, napojení na cokoli</li>
+                    <li data-anim="chart">Predikce, analýza, rozhodování</li>
+                    <li data-anim="shield">Bez kompromisů, bez hranic</li>
                 </ul>
             </div>
             <div class="service-card">
@@ -1597,44 +1632,15 @@
                 <div class="service-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                 </div>
-                <h3>MOTION DESIGN</h3>
-                <p>3D animace a reklamní spoty.</p>
+                <h3>CREATIVE & VIZUALIZACE</h3>
+                <p>Vizuální svět, který nikdo nezapomene.</p>
                 <ul class="service-list">
-                    <li>3D logo animace</li>
-                    <li>Reklamní video spoty</li>
-                    <li>Social media content</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <span class="corner corner-tl"></span>
-                <span class="corner corner-tr"></span>
-                <span class="corner corner-bl"></span>
-                <span class="corner corner-br"></span>
-                <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                </div>
-                <h3>OOH & DOOH</h3>
-                <p>Content pro digitální billboardy.</p>
-                <ul class="service-list">
-                    <li>Digital billboard content</li>
-                    <li>Anamorfní 3D reklamy</li>
-                    <li>LED screen animations</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <span class="corner corner-tl"></span>
-                <span class="corner corner-tr"></span>
-                <span class="corner corner-bl"></span>
-                <span class="corner corner-br"></span>
-                <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
-                </div>
-                <h3>3D VIZUALIZACE</h3>
-                <p>Fotorealistické rendery.</p>
-                <ul class="service-list">
-                    <li>Architektonické vizualizace</li>
-                    <li>Produktové rendery</li>
-                    <li>Concept art</li>
+                    <li data-anim="video:assets/logos/apex-logo-anim.mp4">Logo design & animované identity</li>
+                    <li data-anim="brand">Brand systémy, které dominují</li>
+                    <li data-anim="gallery:3dviz">3D architektonické & produktové vizualizace</li>
+                    <li data-anim="reel">Motion design & reklamní spoty</li>
+                    <li data-anim="img:assets/images/viz-05-terrace-led.png">OOH, DOOH & anamorfní 3D reklamy</li>
+                    <li data-anim="social">Social media content</li>
                 </ul>
             </div>
             <div class="service-card">
@@ -1645,13 +1651,15 @@
                 <div class="service-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                 </div>
-                <h3>WEB DESIGN</h3>
-                <p>Weby, které konvertují.</p>
+                <h3>WEB & DIGITAL</h3>
+                <p>Tvoje digitální přítomnost — přesně tam kde tě hledají.</p>
                 <ul class="service-list">
-                    <li>Moderní responzivní weby</li>
-                    <li>Landing pages & microsites</li>
-                    <li>E-commerce řešení</li>
-                    <li>UX/UI design & development</li>
+                    <li data-anim="browser">Weby, landing pages & microsites</li>
+                    <li data-anim="ecommerce">E-commerce & konverzní strategie</li>
+                    <li data-anim="cursor">UX/UI design & development</li>
+                    <li data-anim="seo">SEO & digitální viditelnost</li>
+                    <li data-anim="rocket">Rychlost, výkon, bezpečnost</li>
+                    <li data-anim="gear">Od konceptu po spuštění</li>
                 </ul>
             </div>
         </div>
@@ -1874,7 +1882,7 @@
         const TAIL_LENGTH = 12;
 
         // Words that appear in the rain
-        const rainWords = ['APEX', 'JARVIS', 'PREDATOR', 'TONY', 'HUNT'];
+        const rainWords = ['ARVIS', 'APEX', 'TONY', 'MASIKO', 'OCCTO', 'CORTEX', 'PREDATOR', 'WEBLYX'];
         const activeWords = [];
 
         // All columns active, drops start from random positions above viewport
@@ -1891,39 +1899,6 @@
         const RAIN_FPS = 24;
         const RAIN_INTERVAL = 1000 / RAIN_FPS;
 
-        // --- A ghost letter as binary characters ---
-        const ghostShape = [
-            [0,0,1,1,1,0,0],
-            [0,1,0,0,0,1,0],
-            [1,0,0,0,0,0,1],
-            [1,1,1,1,1,1,1],
-            [1,0,0,0,0,0,1],
-            [1,0,0,0,0,0,1],
-            [1,0,0,0,0,0,1]
-        ];
-        let ghostActive = false;
-        let ghostData = null;
-
-        function spawnGhost() {
-            if (ghostActive) return;
-            ghostActive = true;
-            const scale = 2;
-            const startCol = Math.floor(Math.random() * (bAllColumns - ghostShape[0].length * scale));
-            const startY = window.innerHeight * (0.2 + Math.random() * 0.5);
-            ghostData = {
-                col: startCol,
-                y: startY,
-                scale: scale,
-                alpha: 0,
-                phase: 'in',
-                born: Date.now()
-            };
-        }
-
-        setInterval(() => {
-            if (!ghostActive && Math.random() > 0.3) spawnGhost();
-        }, 15000 + Math.random() * 10000);
-        setTimeout(spawnGhost, 8000);
 
         function drawBinaryRain() {
             bCtx.clearRect(0, 0, binaryCanvas.width, binaryCanvas.height);
@@ -1945,11 +1920,11 @@
                         const isHead = (t === bTrails[i].length - 1);
 
                         if (isHead) {
-                            // Bright gold head
-                            bCtx.fillStyle = 'rgba(244, 197, 86, 0.3)';
+                            // Bright gold head (+30% intensity)
+                            bCtx.fillStyle = 'rgba(244, 197, 86, 0.39)';
                         } else {
-                            // Darker gold tail fading out
-                            const alpha = 0.02 + progress * 0.12;
+                            // Darker gold tail fading out (+30% intensity)
+                            const alpha = 0.026 + progress * 0.156;
                             const r = Math.floor(160 + progress * 52);
                             const g = Math.floor(120 + progress * 40);
                             const b = Math.floor(30 + progress * 30);
@@ -1983,7 +1958,7 @@
                 for (let c = 0; c < aw.charIndex; c++) {
                     const cy = aw.y + c * bFontSize * 1.2;
                     const isNewest = (c === aw.charIndex - 1);
-                    bCtx.fillStyle = isNewest ? 'rgba(170, 140, 50, 0.4)' : 'rgba(150, 125, 45, 0.2)';
+                    bCtx.fillStyle = isNewest ? 'rgba(170, 140, 50, 0.52)' : 'rgba(150, 125, 45, 0.26)';
                     bCtx.font = (bFontSize + 1) + 'px monospace';
                     bCtx.fillText(aw.word[c], cx, cy);
                 }
@@ -1995,41 +1970,6 @@
                 }
             }
 
-            // --- Ghost letter made of binary chars ---
-            if (ghostActive && ghostData) {
-                const g = ghostData;
-                const age = Date.now() - g.born;
-
-                if (g.phase === 'in') {
-                    g.alpha = Math.min(g.alpha + 0.008, 0.5);
-                    if (g.alpha >= 0.5) g.phase = 'hold';
-                } else if (g.phase === 'hold') {
-                    g.alpha = 0.4 + Math.sin(Date.now() * 0.004) * 0.1;
-                    if (age > 4000) g.phase = 'out';
-                } else {
-                    g.alpha -= 0.006;
-                    if (g.alpha <= 0) {
-                        ghostActive = false;
-                        ghostData = null;
-                    }
-                }
-
-                if (ghostData) {
-                    const cellSize = bFontSize * g.scale;
-                    for (let row = 0; row < ghostShape.length; row++) {
-                        for (let col = 0; col < ghostShape[row].length; col++) {
-                            if (!ghostShape[row][col]) continue;
-                            const cx = (g.col + col * g.scale) * bFontSize;
-                            const cy = g.y + row * cellSize;
-                            const bchar = binaryChars[Math.floor(Math.random() * binaryChars.length)];
-                            bCtx.fillStyle = `rgba(212, 160, 60, ${g.alpha * 0.6})`;
-                            bCtx.font = (bFontSize * g.scale) + 'px monospace';
-                            bCtx.fillText(bchar, cx, cy);
-                        }
-                    }
-                    bCtx.font = bFontSize + 'px monospace';
-                }
-            }
 
 
             requestAnimationFrame(drawBinaryRain);
@@ -2274,35 +2214,233 @@
         (function() {
             const overlay = document.createElement('div');
             overlay.className = 'lightbox-overlay';
-            overlay.innerHTML = '<button class="lightbox-close">&times;</button><img src="" alt="">';
+            overlay.innerHTML = '<button class="lightbox-close">&times;</button><button class="lightbox-nav lb-prev hidden">&#8592;</button><button class="lightbox-nav lb-next hidden">&#8594;</button><div class="lightbox-counter"></div><img src="" alt="">';
             document.body.appendChild(overlay);
 
             const lbImg = overlay.querySelector('img');
             const lbClose = overlay.querySelector('.lightbox-close');
+            const lbPrev = overlay.querySelector('.lb-prev');
+            const lbNext = overlay.querySelector('.lb-next');
+            const lbCounter = overlay.querySelector('.lightbox-counter');
+            let lbGallery = [], lbIdx = 0;
 
+            function updateNav() {
+                const multi = lbGallery.length > 1;
+                lbPrev.classList.toggle('hidden', !multi);
+                lbNext.classList.toggle('hidden', !multi);
+                lbCounter.style.display = multi ? 'block' : 'none';
+                if (multi) lbCounter.textContent = (lbIdx + 1) + ' / ' + lbGallery.length;
+            }
+            function goTo(idx) {
+                lbIdx = (idx + lbGallery.length) % lbGallery.length;
+                lbImg.style.opacity = '0';
+                setTimeout(() => { lbImg.src = lbGallery[lbIdx]; lbImg.style.opacity = '1'; updateNav(); }, 150);
+            }
             function openLightbox(src, alt) {
-                lbImg.src = src;
-                lbImg.alt = alt;
+                lbGallery = []; lbIdx = 0;
+                lbImg.src = src; lbImg.alt = alt;
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                updateNav();
             }
+            window.openLightbox = openLightbox;
+            function openLightboxGallery(imgs, idx) {
+                lbGallery = imgs; lbIdx = idx;
+                lbImg.src = imgs[idx]; lbImg.alt = '';
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                updateNav();
+            }
+            window.openLightboxGallery = openLightboxGallery;
             function closeLightbox() {
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                lbGallery = []; lbIdx = 0;
             }
 
             document.querySelectorAll('.lightbox-img').forEach(img => {
-                img.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openLightbox(img.src, img.alt);
-                });
+                img.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(img.src, img.alt); });
             });
 
+            lbPrev.addEventListener('click', (e) => { e.stopPropagation(); if(lbGallery.length) goTo(lbIdx - 1); });
+            lbNext.addEventListener('click', (e) => { e.stopPropagation(); if(lbGallery.length) goTo(lbIdx + 1); });
             overlay.addEventListener('click', closeLightbox);
             lbClose.addEventListener('click', closeLightbox);
             lbImg.addEventListener('click', (e) => e.stopPropagation());
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft' && lbGallery.length) goTo(lbIdx - 1);
+                if (e.key === 'ArrowRight' && lbGallery.length) goTo(lbIdx + 1);
+            });
+            overlay.addEventListener('wheel', (e) => {
+                if (!lbGallery.length) return;
+                e.preventDefault();
+                goTo(lbIdx + (e.deltaY > 0 ? 1 : -1));
+            }, { passive: false });
+        })();
+
+        // Nav logo video - ensure infinite loop (fallback for iOS/Safari)
+        const navVid = document.getElementById('navLogoVideo');
+        if (navVid) {
+            navVid.addEventListener('ended', () => { navVid.currentTime = 0; navVid.play(); });
+        }
+
+        // ============================================
+        // SERVICE ITEM HOVER PREVIEW
+        // ============================================
+        (function() {
+            // --- GALLERY DATA ---
+            const galleries = {
+                '3dviz': {
+                    title: '3D VIZUALIZACE',
+                    tags: ['3D Render', 'Architecture', 'Exterior Design'],
+                    imgs: [
+                        'assets/images/viz-01-garden.png',
+                        'assets/images/viz-02-terrace-stairs.png',
+                        'assets/images/viz-03-pergola-grill.png',
+                        'assets/images/viz-05-terrace-led.png',
+                        'assets/images/viz-06-gabion.png',
+                        'assets/images/viz-07-pergola-lounge.png',
+                        'assets/images/viz-08-firepit.png'
+                    ]
+                }
+            };
+
+            // --- SMALL POPUP (canvas / video) ---
+            const popup = document.createElement('div');
+            popup.id = 'svc-preview';
+            popup.style.cssText = 'position:fixed;width:200px;height:138px;background:linear-gradient(135deg,rgba(6,6,6,0.98),rgba(18,12,3,0.98));border:1px solid rgba(212,160,60,0.5);box-shadow:0 0 24px rgba(212,160,60,0.13),0 10px 40px rgba(0,0,0,0.7);border-radius:6px;padding:0;pointer-events:none;opacity:0;transition:opacity 0.22s,transform 0.22s;transform:translateX(-10px) scale(0.92);z-index:99999;overflow:hidden;';
+            document.body.appendChild(popup);
+            const canvas = document.createElement('canvas');
+            canvas.width=200;canvas.height=138;canvas.style.cssText='width:100%;height:100%;display:block;';
+            popup.appendChild(canvas);
+            const ctx=canvas.getContext('2d');
+            const W=200,H=138;
+            let animId=null,currentType=null,mediaEl=null;
+
+            // --- GALLERY POPUP ---
+            const gp = document.createElement('div');
+            gp.id = 'svc-gallery';
+            gp.style.cssText = 'position:fixed;width:620px;background:linear-gradient(135deg,rgba(6,6,6,0.99),rgba(18,12,3,0.99));border:1px solid rgba(212,160,60,0.5);box-shadow:0 0 40px rgba(212,160,60,0.15),0 20px 60px rgba(0,0,0,0.8);border-radius:8px;padding:20px;pointer-events:auto;opacity:0;transition:opacity 0.25s,transform 0.25s;transform:translateY(8px) scale(0.97);z-index:99999;';
+            document.body.appendChild(gp);
+            let gpActive = false;
+
+            function showGallery(key, li) {
+                const g = galleries[key];
+                if (!g) return;
+                gp.innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                        <h4 style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:#fff;margin:0;">3D <span style="color:#D4A03C;">VIZUALIZACE</span></h4>
+                        <div style="display:flex;gap:8px;">${g.tags.map(t=>`<span style="font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(212,160,60,.4);color:rgba(212,160,60,.8);padding:3px 10px;border-radius:2px;">${t}</span>`).join('')}</div>
+                    </div>
+                    <p style="font-size:.75rem;color:rgba(255,255,255,.4);margin:0 0 14px;letter-spacing:.05em;">Fotorealistické architektonické rendery • Exteriéry, pergoly, terasy, zahradní prvky</p>
+                    <div id="sgp-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(212,160,60,.3) transparent;">
+                        ${g.imgs.map((src,i)=>`<div class="sgp-img" data-src="${src}" style="aspect-ratio:4/3;overflow:hidden;border-radius:3px;cursor:pointer;border:1px solid rgba(212,160,60,${i===0?.5:.15});transition:border-color .2s;"><img src="${src}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;" loading="lazy"></div>`).join('')}
+                    </div>
+                    <div style="margin-top:10px;text-align:center;font-size:.65rem;color:rgba(212,160,60,.4);letter-spacing:.1em;">SCROLL PRO VÍCE • KLIK PRO ZOBRAZENÍ</div>
+                `;
+                // position gallery
+                const rect = li.getBoundingClientRect();
+                const cardEl = li.closest('.service-card');
+                const cardRect = cardEl ? cardEl.getBoundingClientRect() : rect;
+                let left = cardRect.right + 16;
+                if (left + 640 > window.innerWidth) left = Math.max(8, cardRect.left - 636);
+                let top = cardRect.top;
+                if (top + 380 > window.innerHeight) top = Math.max(8, window.innerHeight - 385);
+                gp.style.left = left + 'px';
+                gp.style.top = top + 'px';
+                gp.style.opacity = '1';
+                gp.style.transform = 'translateY(0) scale(1)';
+                gpActive = true;
+
+                // img hover + click effects
+                gp.querySelectorAll('.sgp-img').forEach((el, i) => {
+                    el.addEventListener('mouseenter', () => { el.style.borderColor = 'rgba(212,160,60,.8)'; el.querySelector('img').style.transform = 'scale(1.05)'; });
+                    el.addEventListener('mouseleave', () => { el.style.borderColor = 'rgba(212,160,60,.15)'; el.querySelector('img').style.transform = 'scale(1)'; });
+                    el.addEventListener('click', () => { if(window.openLightboxGallery) window.openLightboxGallery(g.imgs, i); });
+                });
+            }
+
+            function hideGallery() { gp.style.opacity='0'; gp.style.transform='translateY(8px) scale(0.97)'; gpActive=false; }
+
+            // gallery mouseleave
+            gp.addEventListener('mouseleave', e => {
+                if (!e.relatedTarget || !e.relatedTarget.closest('[data-anim]')) hideGallery();
+            });
+
+            // --- CANVAS HELPERS ---
+            function drawGear(gc,cx,cy,r,teeth,angle,color,fa){gc.save();gc.translate(cx,cy);gc.rotate(angle);gc.beginPath();for(let i=0;i<teeth;i++){const a1=(i/teeth)*Math.PI*2,a2=((i+.35)/teeth)*Math.PI*2,a3=((i+.65)/teeth)*Math.PI*2,a4=((i+1)/teeth)*Math.PI*2;gc.lineTo(Math.cos(a1)*r,Math.sin(a1)*r);gc.lineTo(Math.cos(a2)*(r*1.32),Math.sin(a2)*(r*1.32));gc.lineTo(Math.cos(a3)*(r*1.32),Math.sin(a3)*(r*1.32));gc.lineTo(Math.cos(a4)*r,Math.sin(a4)*r);}gc.closePath();gc.strokeStyle=color;gc.lineWidth=1;gc.stroke();gc.fillStyle=`rgba(${color==='#D4A03C'?'212,160,60':'255,107,0'},${fa})`;gc.fill();gc.beginPath();gc.arc(0,0,r*.35,0,Math.PI*2);gc.stroke();gc.restore();}
+            function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();}
+
+            // --- CANVAS ANIMATIONS ---
+            const anims = {
+                brain:t=>{ctx.clearRect(0,0,W,H);const nodes=[[22,22],[65,55],[105,20],[152,55],[108,100],[22,95],[W/2,H/2]];const edges=[[0,1],[1,2],[2,3],[3,4],[1,4],[0,5],[5,4],[1,6],[2,6],[3,6],[4,6],[6,0]];edges.forEach(([a,b],i)=>{const p=(Math.sin(t*.0018+i*.6)+1)/2;ctx.strokeStyle=`rgba(212,160,60,${.07+p*.3})`;ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(nodes[a][0],nodes[a][1]);ctx.lineTo(nodes[b][0],nodes[b][1]);ctx.stroke();});nodes.forEach(([x,y],i)=>{const p=(Math.sin(t*.0025+i*.9)+1)/2;if(p>.6){ctx.beginPath();ctx.arc(x,y,6+p*7,0,Math.PI*2);ctx.strokeStyle=`rgba(212,160,60,${(p-.6)*.25})`;ctx.lineWidth=.5;ctx.stroke();}ctx.beginPath();ctx.arc(x,y,2.5+p*2.5,0,Math.PI*2);ctx.fillStyle=`rgba(212,160,60,${.45+p*.55})`;ctx.fill();});},
+                gear:t=>{ctx.clearRect(0,0,W,H);drawGear(ctx,W*.42,H*.52,30,9,t*.001,'#D4A03C',.12);drawGear(ctx,W*.78,H*.28,16,6,-t*.00188,'#FF6B00',.18);drawGear(ctx,W*.16,H*.32,13,5,t*.00154,'#D4A03C',.1);ctx.strokeStyle='rgba(212,160,60,0.15)';ctx.lineWidth=.5;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(W*.42,H*.52);ctx.lineTo(W*.78,H*.28);ctx.stroke();ctx.beginPath();ctx.moveTo(W*.42,H*.52);ctx.lineTo(W*.16,H*.32);ctx.stroke();ctx.setLineDash([]);},
+                code:t=>{ctx.clearRect(0,0,W,H);const lines=[{txt:'{ AI.init(',o:1},{txt:'  model: "apex"',o:0},{txt:'  power: ∞',o:0},{txt:'  limits: null',o:0},{txt:'} → deploy()',o:1}];ctx.font='12px monospace';lines.forEach((l,i)=>{const phase=((t*.0025-i*.28)%3+3)%3;const chars=Math.min(l.txt.length,Math.floor(phase*l.txt.length/1.2));const a=.45+(Math.sin(t*.002+i)*.25+.25);ctx.fillStyle=l.o?`rgba(255,107,0,${a})`:`rgba(212,160,60,${a})`;ctx.fillText(l.txt.slice(0,chars),10,22+i*22);if(chars<l.txt.length){const cw=ctx.measureText(l.txt.slice(0,chars)).width;if(Math.sin(t*.012)>0){ctx.fillStyle='rgba(212,160,60,.9)';ctx.fillRect(11+cw,11+i*22,1,13);}}});},
+                chart:t=>{ctx.clearRect(0,0,W,H);const bars=[{x:28,h:72,o:0},{x:62,h:95,o:1},{x:96,h:58,o:0},{x:130,h:108,o:1},{x:164,h:80,o:0}];const ph=(Math.sin(t*.0012)+1)/2;ctx.strokeStyle='rgba(212,160,60,0.2)';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(12,H-18);ctx.lineTo(W-12,H-18);ctx.stroke();bars.forEach((b)=>{const bh=b.h*(.4+ph*.6),by=H-18-bh,bw=22,rgb=b.o?'255,107,0':'212,160,60';ctx.fillStyle=`rgba(${rgb},.18)`;ctx.fillRect(b.x-bw/2,by,bw,bh);ctx.fillStyle=`rgba(${rgb},.75)`;ctx.fillRect(b.x-bw/2,by,bw,2);});},
+                connect:t=>{ctx.clearRect(0,0,W,H);const nodes=[[16,H/2],[52,24],[52,H-24],[W/2,H/2],[W-52,24],[W-52,H-24],[W-16,H/2]];const prg=(t*.0012)%nodes.length;nodes.forEach(([x,y],i)=>{if(i<nodes.length-1){const[nx,ny]=nodes[i+1];ctx.strokeStyle='rgba(212,160,60,.2)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(nx,ny);ctx.stroke();const p=Math.max(0,Math.min(1,prg-i));if(p>0&&p<1){const px=x+(nx-x)*p,py=y+(ny-y)*p;ctx.fillStyle='rgba(255,107,0,.95)';ctx.beginPath();ctx.arc(px,py,3.5,0,Math.PI*2);ctx.fill();}}const pu=(Math.sin(t*.003+i*.8)+1)/2;ctx.fillStyle=`rgba(212,160,60,${.45+pu*.55})`;ctx.beginPath();ctx.arc(x,y,3+pu*2.5,0,Math.PI*2);ctx.fill();});},
+                cube:t=>{ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2,s=38,ang=t*.0012,cos=Math.cos(ang),sin=Math.sin(ang),cos2=Math.cos(ang*.7),sin2=Math.sin(ang*.7);const v=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].map(([x,y,z])=>{const x1=x*cos-z*sin,z1=x*sin+z*cos,y2=y*cos2-z1*sin2,z2=y*sin2+z1*cos2;return[cx+x1*s,cy+y2*s*.65,z2];});[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(([a,b])=>{const za=v[a][2],zb=v[b][2];ctx.strokeStyle=`rgba(212,160,60,${.18+((za+zb)/2+1)*.22})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(v[a][0],v[a][1]);ctx.lineTo(v[b][0],v[b][1]);ctx.stroke();});v.forEach(([x,y,z])=>{ctx.fillStyle=`rgba(212,160,60,${.2+((z+1)/2)*.5})`;ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill();});},
+                browser:t=>{ctx.clearRect(0,0,W,H);ctx.strokeStyle='rgba(212,160,60,.5)';ctx.lineWidth=1.2;rr(ctx,10,8,W-20,H-16,5);ctx.stroke();ctx.fillStyle='rgba(212,160,60,.1)';rr(ctx,11,9,W-22,20,5);ctx.fill();[{x:20,c:'rgba(255,80,80,.7)'},{x:33,c:'rgba(255,180,0,.7)'},{x:46,c:'rgba(80,200,80,.7)'}].forEach(d=>{ctx.fillStyle=d.c;ctx.beginPath();ctx.arc(d.x,19,4.5,0,Math.PI*2);ctx.fill();});ctx.fillStyle='rgba(212,160,60,.08)';rr(ctx,60,13,W-82,14,3);ctx.fill();ctx.fillStyle='rgba(212,160,60,.55)';ctx.font='8px monospace';ctx.fillText('apexpredator.vip',64,22);const prg=(Math.sin(t*.0015)+1)/2;ctx.fillStyle='rgba(212,160,60,.12)';ctx.fillRect(14,33,W-28,3);ctx.fillStyle='rgba(212,160,60,.85)';ctx.fillRect(14,33,(W-28)*prg,3);const la=Math.max(0,prg-.25)/.75;ctx.fillStyle=`rgba(212,160,60,${la*.28})`;[[14,40,W-28,7],[14,52,W-50,7],[14,64,W-38,7],[14,76,W-60,7],[14,88,W-28,7]].forEach(r=>ctx.fillRect(...r));ctx.fillStyle=`rgba(255,107,0,${la*.6})`;ctx.fillRect(14,100,80,14);},
+                rocket:t=>{ctx.clearRect(0,0,W,H);const prg=((t*.0009)%1.4)-.2,x=W*prg,y=H/2-Math.sin(prg*Math.PI)*38;for(let i=1;i<=14;i++){const tp=prg-i*.055,tx=W*tp,ty=H/2-Math.sin(tp*Math.PI)*38;if(tx>0&&tx<W){ctx.fillStyle=`rgba(255,107,0,${.45-i*.03})`;ctx.beginPath();ctx.arc(tx,ty,3.5-i*.22,0,Math.PI*2);ctx.fill();}}if(x>0&&x<W){ctx.save();ctx.translate(x,y);const angle=Math.atan2(-Math.cos(prg*Math.PI)*38*Math.PI/W,W);ctx.rotate(angle);ctx.fillStyle='#D4A03C';ctx.beginPath();ctx.moveTo(14,0);ctx.lineTo(-9,7);ctx.lineTo(-9,-7);ctx.closePath();ctx.fill();ctx.fillStyle='rgba(255,107,0,.85)';ctx.beginPath();ctx.moveTo(-9,0);ctx.lineTo(-20,5);ctx.lineTo(-20,-5);ctx.closePath();ctx.fill();ctx.restore();}for(let i=0;i<6;i++){const lx=((t*.004+i*.18)%1)*W,ly=18+i*18;ctx.strokeStyle='rgba(212,160,60,.14)';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(lx-35,ly);ctx.lineTo(lx,ly);ctx.stroke();}},
+                cursor:t=>{ctx.clearRect(0,0,W,H);ctx.strokeStyle='rgba(212,160,60,.45)';ctx.lineWidth=1.2;rr(ctx,W/2-28,5,56,90,7);ctx.stroke();ctx.fillStyle='rgba(212,160,60,.07)';rr(ctx,W/2-24,14,48,72,4);ctx.fill();const pu=(Math.sin(t*.003)+1)/2;ctx.fillStyle=`rgba(212,160,60,${.35+pu*.5})`;ctx.fillRect(W/2-18,20,36,6);ctx.fillStyle=`rgba(212,160,60,${.2+pu*.3})`;ctx.fillRect(W/2-18,30,28,4);ctx.fillRect(W/2-18,38,32,4);ctx.fillStyle=`rgba(255,107,0,${.55+pu*.35})`;rr(ctx,W/2-14,46,28,12,3);ctx.fill();const mx=W/2+Math.sin(t*.002)*32,my=55+Math.cos(t*.0015)*22;ctx.fillStyle='rgba(255,255,255,.9)';ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(mx,my+15);ctx.lineTo(mx+4,my+11);ctx.lineTo(mx+7,my+17);ctx.lineTo(mx+9,my+15);ctx.lineTo(mx+5,my+9);ctx.lineTo(mx+10,my+9);ctx.closePath();ctx.fill();},
+                shield:t=>{ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2;for(let i=4;i>=0;i--){const ph=(t*.002+i*.5)%(Math.PI*2),r=18+i*14,a=Math.max(0,.45-i*.08)*(Math.sin(ph)+1)/2;ctx.strokeStyle=`rgba(212,160,60,${a})`;ctx.lineWidth=.5;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();}const pu=(Math.sin(t*.003)+1)/2;ctx.strokeStyle=`rgba(212,160,60,${.6+pu*.4})`;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(cx,cy-26);ctx.lineTo(cx+22,cy-15);ctx.lineTo(cx+22,cy+5);ctx.quadraticCurveTo(cx+22,cy+22,cx,cy+30);ctx.quadraticCurveTo(cx-22,cy+22,cx-22,cy+5);ctx.lineTo(cx-22,cy-15);ctx.closePath();ctx.stroke();ctx.fillStyle=`rgba(212,160,60,${.07+pu*.05})`;ctx.fill();ctx.strokeStyle=`rgba(212,160,60,${.85+pu*.15})`;ctx.lineWidth=2.2;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(cx-8,cy+3);ctx.lineTo(cx-2,cy+10);ctx.lineTo(cx+10,cy-7);ctx.stroke();},
+                telegram:t=>{ctx.clearRect(0,0,W,H);ctx.fillStyle='#1a1a2e';ctx.fillRect(0,0,W,H);ctx.fillStyle='#16213e';ctx.fillRect(0,0,W,26);ctx.fillStyle='rgba(212,160,60,0.9)';ctx.font='bold 8px sans-serif';ctx.fillText('OCCTO S.Q.U.I.D.',8,17);ctx.fillStyle='rgba(100,220,100,1)';ctx.beginPath();ctx.arc(W-10,13,3,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(150,150,180,0.7)';ctx.font='6px sans-serif';ctx.fillText('online',W-32,17);const msgs=[{u:1,txt:'/scan 0xDEAD...F00D',y:37},{u:0,txt:'🔍 Analyzing token...',y:55},{u:0,txt:'⚠️ RISK: 73/100',y:73,w:1},{u:0,txt:'Verified: NOT found',y:91},{u:0,txt:'🚨 HIGH RISK — AVOID',y:109,a:1}];const phase=(t*0.0006)%6;ctx.font='7.5px monospace';msgs.forEach((m,i)=>{if(i>=phase-.3)return;const al=Math.min(1,(phase-i-.3)*3);const tw=ctx.measureText(m.txt).width;const bw=tw+12,bh=13,bx=m.u?W-bw-5:5;ctx.fillStyle=m.u?`rgba(212,160,60,${al*.25})`:m.a?`rgba(200,50,50,${al*.4})`:m.w?`rgba(255,140,0,${al*.3})`:`rgba(40,45,70,${al*.9})`;rr(ctx,bx,m.y-10,bw,bh,3);ctx.fill();ctx.fillStyle=m.u?`rgba(212,160,60,${al})`:m.a?`rgba(255,100,100,${al})`:m.w?`rgba(255,180,50,${al})`:`rgba(200,210,255,${al})`;ctx.fillText(m.txt,bx+6,m.y);});if(Math.sin(t*.008)>0){ctx.fillStyle='rgba(212,160,60,.7)';ctx.fillRect(5,H-8,6,2);}},
+                workflow:t=>{ctx.clearRect(0,0,W,H);ctx.fillStyle='#0d1117';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(212,160,60,0.9)';ctx.font='bold 8px sans-serif';ctx.fillText('AUTOMATION',6,14);ctx.fillStyle='rgba(100,220,100,0.8)';ctx.beginPath();ctx.arc(W-10,9,3,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(100,220,100,0.6)';ctx.font='6px sans-serif';ctx.fillText('24/7 LIVE',W-46,13);ctx.strokeStyle='rgba(212,160,60,0.2)';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(0,18);ctx.lineTo(W,18);ctx.stroke();const tasks=[{n:'Crypto BSC scan',d:1},{n:'TG alert dispatch',d:1},{n:'Rate limit check',d:1},{n:'ETH queue process',d:0,p:Math.min(100,(t*.07)%110)},{n:'Report generate',d:0,p:0}];tasks.forEach((task,i)=>{const y=26+i*21;ctx.strokeStyle=task.d?'rgba(100,220,100,.9)':'rgba(212,160,60,.4)';ctx.lineWidth=1;rr(ctx,6,y,10,10,2);ctx.stroke();if(task.d){ctx.fillStyle='rgba(100,220,100,.2)';rr(ctx,6,y,10,10,2);ctx.fill();ctx.strokeStyle='rgba(100,220,100,1)';ctx.lineWidth=1.5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(8.5,y+5);ctx.lineTo(10.5,y+7.5);ctx.lineTo(14,y+3);ctx.stroke();}ctx.fillStyle=task.d?'rgba(100,220,100,.8)':'rgba(200,200,220,.8)';ctx.font='7.5px sans-serif';ctx.fillText(task.n,20,y+7.5);if(!task.d&&task.p>0){ctx.fillStyle='rgba(40,40,60,.8)';ctx.fillRect(20,y+10,110,2);ctx.fillStyle='rgba(255,107,0,.9)';ctx.fillRect(20,y+10,110*task.p/100,2);}});ctx.fillStyle='rgba(30,30,50,.8)';ctx.fillRect(0,H-16,W,16);ctx.fillStyle='rgba(100,220,100,.7)';ctx.font='6.5px sans-serif';ctx.fillText('✓ 3 done',6,H-5);ctx.fillStyle='rgba(255,107,0,.7)';ctx.fillText('⟳ running',60,H-5);ctx.fillStyle='rgba(150,150,180,.5)';ctx.fillText('1 queued',130,H-5);},
+                brand:t=>{ctx.clearRect(0,0,W,H);ctx.fillStyle='#0a0a0a';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(212,160,60,.6)';ctx.font='6px sans-serif';ctx.fillText('BRAND IDENTITY SYSTEM',6,11);ctx.strokeStyle='rgba(212,160,60,.2)';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(0,15);ctx.lineTo(W,15);ctx.stroke();const cols=[['#000','BLACK','#000'],['#D4A03C','GOLD','#D4A03C'],['#FF6B00','ORANGE','#FF6B00'],['#1a1a1a','DARK','#1a1a1a']];cols.forEach((c,i)=>{const x=5+i*47,y=20;ctx.fillStyle=c[0];rr(ctx,x,y,42,28,3);ctx.fill();if(i===0){ctx.strokeStyle='rgba(212,160,60,.3)';ctx.lineWidth=.5;rr(ctx,x,y,42,28,3);ctx.stroke();}ctx.fillStyle='rgba(200,200,200,.6)';ctx.font='5.5px sans-serif';ctx.fillText(c[1],x+2,y+36);});const pu=(Math.sin(t*.003)+1)/2;ctx.strokeStyle=`rgba(212,160,60,${.15+pu*.15})`;ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(0,64);ctx.lineTo(W,64);ctx.stroke();ctx.fillStyle='rgba(212,160,60,.5)';ctx.font='5.5px sans-serif';ctx.fillText('TYPOGRAPHY',6,74);ctx.fillStyle='rgba(255,255,255,.95)';ctx.font='bold 15px sans-serif';ctx.fillText('APEX PREDATOR',6,92);ctx.fillStyle='rgba(200,200,200,.7)';ctx.font='7.5px sans-serif';ctx.fillText('Bebas Neue — Display',6,105);ctx.fillStyle='rgba(180,180,180,.6)';ctx.font='7px sans-serif';ctx.fillText('Outfit — Body regular',6,117);ctx.strokeStyle=`rgba(212,160,60,${.3+pu*.2})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W-38,72);ctx.lineTo(W-22,54);ctx.lineTo(W-6,72);ctx.closePath();ctx.stroke();ctx.beginPath();ctx.arc(W-22,78,8,0,Math.PI*2);ctx.stroke();},
+                social:t=>{ctx.clearRect(0,0,W,H);ctx.fillStyle='#0f0f0f';ctx.fillRect(0,0,W,H);const stories=['AP','DZ','MK','WX'];stories.forEach((s,i)=>{const sx=6+i*47;const pu=(Math.sin(t*.002+i*.8)+1)/2;const grd=ctx.createLinearGradient(sx,0,sx+36,36);grd.addColorStop(0,`rgba(212,160,60,${.6+pu*.4})`);grd.addColorStop(1,`rgba(255,107,0,${.6+pu*.4})`);ctx.strokeStyle=grd;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(sx+18,16,13,0,Math.PI*2);ctx.stroke();ctx.fillStyle='rgba(30,30,30,1)';ctx.beginPath();ctx.arc(sx+18,16,11,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(200,200,200,.9)';ctx.font='bold 7px sans-serif';ctx.textAlign='center';ctx.fillText(s,sx+18,19);ctx.textAlign='left';});const posts=[{c:'rgba(212,160,60,.25)'},{c:'rgba(255,107,0,.2)'},{c:'rgba(20,20,30,1)'},{c:'rgba(30,20,10,1)'},{c:'rgba(212,160,60,.18)'},{c:'rgba(255,107,0,.12)'}];posts.forEach((p,i)=>{const col=i%3,row=Math.floor(i/3);const px=3+col*64,py=36+row*45,pw=60,ph=41;ctx.fillStyle=p.c;rr(ctx,px,py,pw,ph,2);ctx.fill();ctx.strokeStyle='rgba(212,160,60,.12)';ctx.lineWidth=.5;rr(ctx,px,py,pw,ph,2);ctx.stroke();ctx.fillStyle='rgba(200,200,200,.35)';ctx.font='5.5px sans-serif';ctx.fillText('♥ '+(120+i*43),px+2,py+ph-3);});ctx.fillStyle='rgba(20,20,20,.9)';ctx.fillRect(0,H-13,W,13);ctx.fillStyle='rgba(212,160,60,.5)';ctx.font='6px sans-serif';ctx.fillText('@apexpredator.design',6,H-3);},
+                ecommerce:t=>{ctx.clearRect(0,0,W,H);ctx.fillStyle='#0d0d0d';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(20,20,25,1)';ctx.fillRect(0,0,W,20);ctx.fillStyle='rgba(212,160,60,.8)';ctx.font='bold 7px sans-serif';ctx.fillText('APEX STORE',6,13);ctx.strokeStyle='rgba(212,160,60,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W-26,7);ctx.lineTo(W-24,7);ctx.lineTo(W-22,14);ctx.lineTo(W-14,14);ctx.lineTo(W-13,10);ctx.lineTo(W-24,10);ctx.stroke();ctx.fillStyle='rgba(255,107,0,1)';ctx.beginPath();ctx.arc(W-13,7,4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 5px sans-serif';ctx.fillText('3',W-15,9);const products=[{n:'Brand Identity',p:'15 000',hot:1},{n:'Web Package',p:'8 500',hot:0},{n:'AI Automation',p:'12 000',hot:1}];const pu=(Math.sin(t*.003)+1)/2;products.forEach((pr,i)=>{const y=24+i*35;ctx.fillStyle='rgba(25,25,35,.9)';rr(ctx,5,y,W-10,30,3);ctx.fill();if(pr.hot){ctx.strokeStyle=`rgba(255,107,0,${.4+pu*.3})`;ctx.lineWidth=.5;rr(ctx,5,y,W-10,30,3);ctx.stroke();}ctx.fillStyle=pr.hot?'rgba(255,107,0,.35)':'rgba(212,160,60,.18)';ctx.fillRect(8,y+3,20,24);ctx.fillStyle='rgba(200,200,220,.9)';ctx.font='7px sans-serif';ctx.fillText(pr.n,32,y+13);ctx.fillStyle='rgba(212,160,60,.9)';ctx.font='bold 8px sans-serif';ctx.fillText(pr.p+' Kč',32,y+25);if(pr.hot){ctx.fillStyle='rgba(255,107,0,.9)';ctx.font='5px sans-serif';ctx.fillText('HOT',W-22,y+8);}});ctx.fillStyle='rgba(30,30,40,.8)';ctx.fillRect(0,H-14,W,14);const cv=65+Math.sin(t*.001)*5;ctx.fillStyle='rgba(212,160,60,.15)';ctx.fillRect(6,H-10,100,5);ctx.fillStyle='rgba(212,160,60,.8)';ctx.fillRect(6,H-10,cv,5);ctx.fillStyle='rgba(200,200,200,.6)';ctx.font='5.5px sans-serif';ctx.fillText(`Conv: ${Math.round(cv)}%`,112,H-5);},
+                seo:t=>{ctx.clearRect(0,0,W,H);ctx.fillStyle='#0d0d0d';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(25,25,35,.9)';rr(ctx,5,5,W-10,18,9);ctx.fill();ctx.strokeStyle='rgba(212,160,60,.3)';ctx.lineWidth=.5;rr(ctx,5,5,W-10,18,9);ctx.stroke();ctx.fillStyle='rgba(100,150,255,.7)';ctx.font='7px sans-serif';ctx.fillText('apex predator design',14,17);ctx.strokeStyle='rgba(212,160,60,.5)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(W-14,14,4,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(W-11,17);ctx.lineTo(W-8,20);ctx.stroke();const results=[{pos:1,url:'apexpredator.vip',title:'ApexPredator — We Hunt Perfection',gold:1},{pos:2,url:'apexpredator.vip/en',title:'Apex Design — AI & Creative',gold:0},{pos:3,url:'apexpredator.vip/portfolio',title:'Portfolio — 3D Viz & Web',gold:0}];const pu=(Math.sin(t*.003)+1)/2;results.forEach((r,i)=>{const y=30+i*32;ctx.fillStyle=r.gold?`rgba(212,160,60,${.7+pu*.3})`:'rgba(100,100,130,.5)';rr(ctx,6,y,12,12,2);ctx.fill();ctx.fillStyle=r.gold?'#000':'rgba(200,200,200,.8)';ctx.font='bold 7px sans-serif';ctx.textAlign='center';ctx.fillText('#'+r.pos,12,y+8.5);ctx.textAlign='left';ctx.fillStyle='rgba(100,200,100,.7)';ctx.font='6px sans-serif';ctx.fillText(r.url,22,y+7);ctx.fillStyle=r.gold?`rgba(212,160,60,${.8+pu*.2})`:'rgba(180,180,200,.7)';ctx.font=(r.gold?'bold ':'')+'6.5px sans-serif';ctx.fillText(r.title.slice(0,28)+(r.title.length>28?'…':''),22,y+17);if(r.gold){ctx.fillStyle='rgba(255,180,0,.8)';ctx.font='7px sans-serif';ctx.fillText('★★★★★',22,y+27);}});ctx.fillStyle='rgba(20,20,30,.9)';ctx.fillRect(0,H-14,W,14);ctx.fillStyle='rgba(212,160,60,.5)';ctx.font='6px sans-serif';ctx.fillText('DA:45',6,H-4);ctx.fillText('Links:234',42,H-4);ctx.fillText('Rank ↑7',95,H-4);ctx.fillStyle='rgba(100,220,100,.7)';ctx.fillText('● TOP 3',142,H-4);},
+                reel:t=>{ctx.clearRect(0,0,W,H);ctx.fillStyle='#050505';ctx.fillRect(0,0,W,H);for(let i=0;i<8;i++){ctx.fillStyle='rgba(25,18,0,.85)';ctx.fillRect(i*(W/7.6),0,W/8.2,H);}const af=Math.floor((t*.002)%8);ctx.fillStyle='rgba(212,160,60,.12)';ctx.fillRect(af*(W/7.6),0,W/8.2,H);const pu=(Math.sin(t*.004)+1)/2;ctx.fillStyle=`rgba(0,0,0,${.5+pu*.1})`;ctx.beginPath();ctx.arc(W/2,H/2,22,0,Math.PI*2);ctx.fill();ctx.strokeStyle=`rgba(212,160,60,${.6+pu*.4})`;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(W/2,H/2,22,0,Math.PI*2);ctx.stroke();ctx.fillStyle=`rgba(212,160,60,${.8+pu*.2})`;ctx.beginPath();ctx.moveTo(W/2-6,H/2-10);ctx.lineTo(W/2+13,H/2);ctx.lineTo(W/2-6,H/2+10);ctx.closePath();ctx.fill();const prg=(t*.0004)%1;ctx.fillStyle='rgba(50,50,50,.8)';ctx.fillRect(8,H-14,W-16,4);ctx.fillStyle='rgba(212,160,60,.9)';ctx.fillRect(8,H-14,(W-16)*prg,4);ctx.fillStyle=`rgba(212,160,60,${.8+pu*.2})`;ctx.beginPath();ctx.arc(8+(W-16)*prg,H-12,5,0,Math.PI*2);ctx.fill();const tot=180,cur=Math.floor(tot*prg);ctx.fillStyle='rgba(200,200,200,.5)';ctx.font='6px monospace';ctx.fillText(`${String(Math.floor(cur/60)).padStart(2,'0')}:${String(cur%60).padStart(2,'0')} / 3:00`,12,H-3);}
+            };
+
+            // --- STOP / START ---
+            function stopAnim(){cancelAnimationFrame(animId);animId=null;currentType=null;if(mediaEl){try{mediaEl.pause();}catch(e){}mediaEl.remove();mediaEl=null;}canvas.style.display='block';ctx.clearRect(0,0,W,H);}
+
+            function showMedia(src,isVideo){
+                stopAnim();canvas.style.display='none';
+                if(isVideo){mediaEl=document.createElement('video');mediaEl.src=src;mediaEl.autoplay=true;mediaEl.muted=true;mediaEl.loop=true;mediaEl.playsInline=true;mediaEl.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';popup.appendChild(mediaEl);mediaEl.play();}
+                else{mediaEl=document.createElement('img');mediaEl.src=src;mediaEl.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';popup.appendChild(mediaEl);}
+            }
+
+            function startAnim(type){
+                stopAnim();canvas.style.display='block';currentType=type;
+                function loop(ts){if(currentType!==type)return;if(anims[type])anims[type](ts);animId=requestAnimationFrame(loop);}
+                requestAnimationFrame(loop);
+            }
+
+            function hideSmall(){popup.style.opacity='0';popup.style.transform='translateX(-10px) scale(0.92)';}
+            function showSmall(rect){
+                let left=rect.right+14,top=rect.top-28;
+                if(left+210>window.innerWidth)left=rect.left-214;
+                if(top+145>window.innerHeight)top=window.innerHeight-148;
+                if(top<5)top=5;
+                popup.style.left=left+'px';popup.style.top=top+'px';
+                popup.style.opacity='1';popup.style.transform='translateX(0) scale(1)';
+            }
+
+            // --- BIND LI EVENTS ---
+            document.querySelectorAll('.service-list li[data-anim]').forEach(li=>{
+                li.style.cursor='default';
+                li.addEventListener('mouseenter',e=>{
+                    const val=li.dataset.anim;
+                    hideGallery();hideSmall();stopAnim();
+                    if(val.startsWith('gallery:')){
+                        showGallery(val.slice(8),li);
+                    } else {
+                        showSmall(li.getBoundingClientRect());
+                        if(val.startsWith('video:'))showMedia(val.slice(6),true);
+                        else if(val.startsWith('img:'))showMedia(val.slice(4),false);
+                        else startAnim(val);
+                    }
+                });
+                li.addEventListener('mouseleave',e=>{
+                    const to=e.relatedTarget;
+                    // allow moving to gallery popup
+                    if(to&&(to===gp||gp.contains(to)))return;
+                    hideSmall();
+                    setTimeout(()=>{if(popup.style.opacity!=='1')stopAnim();},240);
+                    if(!gpActive)hideGallery();
+                });
             });
         })();
     </script>
