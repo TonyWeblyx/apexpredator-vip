@@ -242,48 +242,6 @@
             filter: drop-shadow(0 0 20px rgba(212, 160, 60, 0.8));
         }
 
-        /* WebLyx Partner Mini Logo */
-        .weblyx-partner {
-            position: absolute;
-            left: 4rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            text-decoration: none;
-            z-index: 1001;
-        }
-        .weblyx-partner img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            opacity: 0.5;
-            transition: all 0.4s ease;
-            filter: grayscale(0.3);
-        }
-        .weblyx-partner:hover img {
-            opacity: 1;
-            filter: grayscale(0) drop-shadow(0 0 8px rgba(0, 188, 180, 0.6));
-            transform: scale(1.1);
-        }
-        .weblyx-partner span {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
-            transition: color 0.3s;
-        }
-        .weblyx-partner:hover span {
-            color: rgba(0, 188, 180, 0.8);
-        }
-        .nav.scrolled .weblyx-partner { left: 4rem; }
-        @media (max-width: 768px) {
-            .weblyx-partner { left: 1rem; top: auto; bottom: 1rem; position: fixed; transform: none; z-index: 1002; }
-            .weblyx-partner span { display: none; }
-        }
-
         .nav-links {
             display: flex;
             gap: 3rem;
@@ -1488,7 +1446,7 @@
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
         <div class="preloader-eye-wrapper">
-            <img src="assets/logos/apex-wolf-clean.png" alt="APD" class="preloader-eye">
+            <img src="assets/logos/apex-wolf-binary.jpg" alt="APD" class="preloader-eye">
         </div>
         <div class="preloader-text">
             <span style="animation-delay:0s">A</span><span style="animation-delay:0.1s">P</span><span style="animation-delay:0.2s">E</span><span style="animation-delay:0.3s">X</span><span style="animation-delay:0.4s">P</span><span style="animation-delay:0.5s">R</span><span style="animation-delay:0.6s">E</span><span style="animation-delay:0.7s">D</span><span style="animation-delay:0.8s">A</span><span style="animation-delay:0.9s">T</span><span style="animation-delay:1s">O</span><span style="animation-delay:1.1s">R</span>
@@ -1500,11 +1458,14 @@
 
     <!-- NAVIGATION -->
     <nav class="nav" id="nav">
-        <a href="https://weblyx.cz" class="weblyx-partner" target="_blank" rel="noopener" title="WebLyx - Digital Excellence" style="display:none;">
-            <img src="assets/logos/weblyx-mini.png" alt="WebLyx">
-            <span>Partner</span>
+        <a href="#" class="nav-logo">
+            <img src="assets/logos/apd-logo.png" alt="ApexPredator" class="nav-logo-full">
+            <svg class="nav-logo-mini" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height:45px;width:45px;">
+                <defs><linearGradient id="goldGradNav" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F4C556"/><stop offset="50%" style="stop-color:#D4A03C"/><stop offset="100%" style="stop-color:#FF6B00"/></linearGradient></defs>
+                <path d="M10 85 L32 15 L54 85 L46 85 L40 65 L24 65 L18 85 Z M27 55 L37 55 L32 30 Z" fill="url(#goldGradNav)"/>
+                <path d="M52 15 L80 15 Q95 15 95 35 Q95 55 80 55 L62 55 L62 85 L52 85 Z M62 25 L62 45 L78 45 Q85 45 85 35 Q85 25 78 25 Z" fill="url(#goldGradNav)"/>
+            </svg>
         </a>
-        <!-- logo removed -->
         <ul class="nav-links">
             <li><a href="#services">Služby</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
@@ -1705,112 +1666,6 @@
         <h2 class="section-title">SELECTED WORK</h2>
         <p class="section-subtitle">Každý projekt je důkazem naší preciznosti a kreativity.</p>
 
-        <!-- F&D CREW -->
-        <div class="case-study">
-            <div class="case-study-header">
-                <div class="case-study-info">
-                    <h3>F&D <span>CREW</span></h3>
-                    <p>Kompletní transformace • Brand Identity + 3D Animace + Web Design</p>
-                </div>
-                <div class="case-study-tags">
-                    <span class="tag">Brand Identity</span>
-                    <span class="tag">3D Animation</span>
-                    <span class="tag">Logo Evolution</span>
-                    <span class="tag">Web Design</span>
-                </div>
-            </div>
-
-            <div class="evolution-gallery">
-                <div class="evolution-step">
-                    <span class="evolution-label">Originál</span>
-                    <div class="screenshot-item"><img src="assets/images/fd-1-original.png" alt="F&D Original"></div>
-                </div>
-                <div class="evolution-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32" height="32"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </div>
-                <div class="evolution-step">
-                    <span class="evolution-label">Finální verze</span>
-                    <div class="screenshot-item"><img src="assets/images/fd-3-final.jpg" alt="F&D Final"></div>
-                </div>
-            </div>
-
-            <div class="video-grid cols-2">
-                <div class="video-item">
-                    <video muted loop playsinline><source src="assets/videos/1769800205627_F_D-_svarecka__jpg.mp4" type="video/mp4"></video>
-                    <div class="video-label"><span>Svářečka</span> • Logo Reveal</div>
-                </div>
-                <div class="video-item">
-                    <video muted loop playsinline><source src="assets/videos/1769800205627_build-_bagr.mp4" type="video/mp4"></video>
-                    <div class="video-label"><span>Bagr</span> • Construction</div>
-                </div>
-            </div>
-
-            <h4 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 2.5rem; margin-bottom: 1.5rem;">WEB DESIGN KONCEPTY</h4>
-            <div class="screenshot-gallery">
-                <div class="screenshot-item"><img src="assets/images/fd-concept-minimal.png" alt="F&D Web - Minimal Style"></div>
-                <div class="screenshot-item"><img src="assets/images/fd-concept-modern.png" alt="F&D Web - Modern Style"></div>
-                <div class="screenshot-item"><img src="assets/images/fd-concept-brutalist.png" alt="F&D Web - Brutalist Style"></div>
-            </div>
-        </div>
-
-        <!-- ŠPANĚLŠTINA BRNO -->
-        <div class="case-study">
-            <div class="case-study-header">
-                <div class="case-study-info">
-                    <h3>ŠPANĚLŠTINA <span>BRNO</span></h3>
-                    <p>Kompletní redesign webu jazykové školy • Interaktivní rozřazovací kvíz • Online booking systém • Před → Po</p>
-                </div>
-                <div class="case-study-tags">
-                    <span class="tag">Web Design</span>
-                    <span class="tag">UX/UI</span>
-                    <span class="tag">Development</span>
-                    <span class="tag">Redesign</span>
-                    <span class="tag">Interaktivní kvíz</span>
-                    <span class="tag">Booking systém</span>
-                </div>
-            </div>
-
-            <!-- PŘED -->
-            <h4 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 2rem; margin-bottom: 2rem;">PŘED</h4>
-            <div class="screenshot-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-                <div class="screenshot-item"><img src="assets/images/spanelstina/section-01.png" alt="Původní web — Hlavní stránka" class="lightbox-img"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/section-02.png" alt="Původní web — Lektoři" class="lightbox-img"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/section-03.png" alt="Původní web — Kontakt" class="lightbox-img"></div>
-            </div>
-
-            <!-- PO -->
-            <h4 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.2em; color: var(--gold); margin-top: 3rem; margin-bottom: 2rem;">PO</h4>
-            <div class="screenshot-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-                <div class="screenshot-item"><img src="assets/images/spanelstina/01-kurzy.png" alt="Nový web — Kurzy" class="lightbox-img"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/02-lektori.png" alt="Nový web — Lektoři" class="lightbox-img"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/03-lektorky.png" alt="Nový web — Lektorky" class="lightbox-img"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/04-urovne.png" alt="Nový web — Jazykové úrovně" class="lightbox-img"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/05-reference.png" alt="Nový web — Reference" class="lightbox-img"></div>
-                <div class="screenshot-item"><img src="assets/images/spanelstina/06-kontakt.png" alt="Nový web — Kontakt" class="lightbox-img"></div>
-            </div>
-        </div>
-
-        <!-- APEXPREDATOR -->
-        <div class="case-study">
-            <div class="case-study-header">
-                <div class="case-study-info">
-                    <h3>APEX<span>PREDATOR</span></h3>
-                    <p>Naše vlastní brand transformace • Logo evolution</p>
-                </div>
-                <div class="case-study-tags">
-                    <span class="tag">Brand Identity</span>
-                    <span class="tag">Logo Design</span>
-                    <span class="tag">3D Animation</span>
-                </div>
-            </div>
-            <div class="evolution-gallery">
-                <div class="evolution-step">
-                    <span class="evolution-label">Aktuální verze</span>
-                    <div class="screenshot-item"><img src="assets/logos/apex-wolf-transparent.png" alt="ApexPredator Wolf Logo"></div>
-                </div>
-            </div>
-        </div>
-
         <!-- 3D VIZUALIZACE -->
         <div class="case-study">
             <div class="case-study-header">
@@ -1993,8 +1848,9 @@
         }, 400);
 
         // ============================================
-        // BINARY RAIN - Weblyx teal matrix style
-        // Dense columns, small font, teal/cyan palette
+        // BINARY RAIN - Full page, own mechanics
+        // Founders Easter Egg: F, J, Z hidden in the code
+        // Ghost letter materializes as binary characters
         // ============================================
         const binaryCanvas = document.getElementById('binaryRain');
         const bCtx = binaryCanvas.getContext('2d');
@@ -2020,7 +1876,11 @@
         const bTrails = [];
         const TAIL_LENGTH = 12;
 
-        // Initialize all columns
+        // Words that appear in the rain
+        const rainWords = ['APEX', 'JARVIS', 'PREDATOR', 'TONY', 'HUNT'];
+        const activeWords = [];
+
+        // All columns active, drops start from random positions above viewport
         for (let i = 0; i < bAllColumns; i++) {
             bDrops[i] = Math.random() * -50;
             bSpeeds[i] = Math.random() * 0.12 + 0.03;
@@ -2034,12 +1894,41 @@
         const RAIN_FPS = 24;
         const RAIN_INTERVAL = 1000 / RAIN_FPS;
 
-        function drawBinaryRain(timestamp) {
-            if (timestamp - lastRainFrame < RAIN_INTERVAL) {
-                requestAnimationFrame(drawBinaryRain);
-                return;
-            }
-            lastRainFrame = timestamp;
+        // --- A ghost letter as binary characters ---
+        const ghostShape = [
+            [0,0,1,1,1,0,0],
+            [0,1,0,0,0,1,0],
+            [1,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,1],
+            [1,0,0,0,0,0,1],
+            [1,0,0,0,0,0,1]
+        ];
+        let ghostActive = false;
+        let ghostData = null;
+
+        function spawnGhost() {
+            if (ghostActive) return;
+            ghostActive = true;
+            const scale = 2;
+            const startCol = Math.floor(Math.random() * (bAllColumns - ghostShape[0].length * scale));
+            const startY = window.innerHeight * (0.2 + Math.random() * 0.5);
+            ghostData = {
+                col: startCol,
+                y: startY,
+                scale: scale,
+                alpha: 0,
+                phase: 'in',
+                born: Date.now()
+            };
+        }
+
+        setInterval(() => {
+            if (!ghostActive && Math.random() > 0.3) spawnGhost();
+        }, 15000 + Math.random() * 10000);
+        setTimeout(spawnGhost, 8000);
+
+        function drawBinaryRain() {
             bCtx.clearRect(0, 0, binaryCanvas.width, binaryCanvas.height);
             bCtx.font = bFontSize + 'px monospace';
 
@@ -2081,6 +1970,70 @@
                     bTrails[i] = [];
                 }
             }
+
+
+            // --- Word drops ---
+            for (let w = activeWords.length - 1; w >= 0; w--) {
+                const aw = activeWords[w];
+                aw.timer += aw.speed;
+
+                if (aw.timer >= 1 && aw.charIndex < aw.word.length) {
+                    aw.charIndex++;
+                    aw.timer = 0;
+                }
+
+                const cx = aw.col * bFontSize;
+                for (let c = 0; c < aw.charIndex; c++) {
+                    const cy = aw.y + c * bFontSize * 1.2;
+                    const isNewest = (c === aw.charIndex - 1);
+                    bCtx.fillStyle = isNewest ? 'rgba(170, 140, 50, 0.4)' : 'rgba(150, 125, 45, 0.2)';
+                    bCtx.font = (bFontSize + 1) + 'px monospace';
+                    bCtx.fillText(aw.word[c], cx, cy);
+                }
+                bCtx.font = bFontSize + 'px monospace';
+
+                if (aw.charIndex >= aw.word.length) {
+                    aw.timer += 0.01;
+                    if (aw.timer > 3) activeWords.splice(w, 1);
+                }
+            }
+
+            // --- Ghost letter made of binary chars ---
+            if (ghostActive && ghostData) {
+                const g = ghostData;
+                const age = Date.now() - g.born;
+
+                if (g.phase === 'in') {
+                    g.alpha = Math.min(g.alpha + 0.008, 0.5);
+                    if (g.alpha >= 0.5) g.phase = 'hold';
+                } else if (g.phase === 'hold') {
+                    g.alpha = 0.4 + Math.sin(Date.now() * 0.004) * 0.1;
+                    if (age > 4000) g.phase = 'out';
+                } else {
+                    g.alpha -= 0.006;
+                    if (g.alpha <= 0) {
+                        ghostActive = false;
+                        ghostData = null;
+                    }
+                }
+
+                if (ghostData) {
+                    const cellSize = bFontSize * g.scale;
+                    for (let row = 0; row < ghostShape.length; row++) {
+                        for (let col = 0; col < ghostShape[row].length; col++) {
+                            if (!ghostShape[row][col]) continue;
+                            const cx = (g.col + col * g.scale) * bFontSize;
+                            const cy = g.y + row * cellSize;
+                            const bchar = binaryChars[Math.floor(Math.random() * binaryChars.length)];
+                            bCtx.fillStyle = `rgba(212, 160, 60, ${g.alpha * 0.6})`;
+                            bCtx.font = (bFontSize * g.scale) + 'px monospace';
+                            bCtx.fillText(bchar, cx, cy);
+                        }
+                    }
+                    bCtx.font = bFontSize + 'px monospace';
+                }
+            }
+
 
             requestAnimationFrame(drawBinaryRain);
         }
