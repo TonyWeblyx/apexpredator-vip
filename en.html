@@ -45,7 +45,7 @@
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scrollbar-width: none; }
+        html { scroll-behavior: smooth; scrollbar-width: none; overflow-x: hidden; }
         html::-webkit-scrollbar { display: none; }
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -669,7 +669,7 @@
         .services { background: var(--black-light); }
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
         }
         .service-card {
@@ -1452,6 +1452,8 @@
             .hero-subtitle { font-size: 0.95rem; }
             .video-grid, .video-grid.cols-2 { grid-template-columns: 1fr; }
             .screenshot-gallery, .screenshot-gallery.cols-2 { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr !important; }
+            .service-card { padding: 2rem 1.5rem; }
             .stats { grid-template-columns: 1fr; gap: 3rem; }
             .contact-info { flex-direction: column; gap: 2rem; }
             .footer { flex-direction: column; text-align: center; }
@@ -1600,7 +1602,7 @@
         <h2 class="section-title">OUR SERVICES</h2>
         <p class="section-subtitle">Three pillars. Infinite possibilities. One team.</p>
 
-        <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="services-grid">
             <div class="service-card">
                 <span class="corner corner-tl"></span>
                 <span class="corner corner-tr"></span>
